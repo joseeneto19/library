@@ -23,6 +23,39 @@ public class UserDao {
 		return con;
 	}
 	
+	public static int saveUser(User u) {
+		int status = 0;
+		
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("INSERT INTO user (bookid, bookname, number) VALUES (?, ?, ?)");
+			ps.setInt(1, u.getBookid());
+			ps.setString(2, u.getBookname());
+			ps.setLong(3, u.getNumber());
+			status = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return status;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static User getRegistroById(int id) {
 		User user = null;
 		
