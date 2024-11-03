@@ -47,6 +47,24 @@ public class UserDao {
 		return user;
 	}
 	
+	public static int updateUser(User u) {
+		int status = 0;
+		
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("UPDATE user SET bookid=?,"
+					+ "bookname=?, number=? WHERE id=?");
+			
+			ps.setInt(1, u.getBookid());
+			ps.setString(2, u.getBookname());
+			ps.setLong(3, u.getNumber());
+			ps.setInt(4, u.getId());
+			status = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return status;
+	}
 	
 	
 	
