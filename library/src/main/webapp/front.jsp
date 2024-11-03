@@ -91,7 +91,7 @@
         <form action="processaFormulario" method="post">
             <div class="form-group">
                 <label for="codigoUsuario">Código do Usuário:</label>
-                <input type="number" class="form-control" id="codigoUsuario" name="codigoUsuario"
+                <input type="text" class="form-control" id="codigoUsuario" name="codigoUsuario"
                     placeholder="Código do Usuário" max="9999999" required>
             </div>
 

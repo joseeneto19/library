@@ -67,8 +67,8 @@
 
     <div class="container">
         <h1>BIBLIOTECA</h1>
-        <button class="btn btn-custom" onclick="window.location.href='adicionarLivro.html'">ADICIONAR LIVROS</button>
-        <button class="btn btn-custom" onclick="window.location.href='verLivros.html'">VER LIVROS</button>
+        <button class="btn btn-custom" onclick="window.location.href='front.jsp'">ADICIONAR LIVROS</button>
+        <button class="btn btn-custom" onclick="window.location.href='viewusers.jsp'">VER LIVROS</button>
     </div>
 
     <!-- JavaScript (Opcional) -->
