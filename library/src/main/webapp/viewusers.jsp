@@ -32,7 +32,7 @@
                 <td>${user.bookname}</td>
                 <td>${user.number}</td>
                 <td><a href="editform.jsp?id=${user.getId()}">Editar</a></td>
-                <td><a href="#">Deletar</a></td>
+                <td><a href="deleteuser.jsp?id=${user.getId()}">Deletar</a></td>
             </tr>
         </c:forEach>
     </table>

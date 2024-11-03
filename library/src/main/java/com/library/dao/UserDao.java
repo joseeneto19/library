@@ -23,6 +23,27 @@ public class UserDao {
 		return con;
 	}
 	
+	
+	public static int deleteUser(User u) {
+		int status = 0;
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("DELETE FROM user WHERE id=?");
+			ps.setInt(1, u.getId());
+			status = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return status;
+		
+		
+	}
+	
+	
+	
+	
+	
 	public static int saveUser(User u) {
 		int status = 0;
 		
