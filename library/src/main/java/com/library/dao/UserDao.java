@@ -24,6 +24,8 @@ public class UserDao {
 	}
 	
 	
+	
+	
 	public static int deleteUser(User u) {
 		int status = 0;
 		try {
@@ -39,11 +41,8 @@ public class UserDao {
 		
 		
 	}
-	
-	
-	
-	
-	
+		
+
 	public static int saveUser(User u) {
 		int status = 0;
 		
@@ -63,19 +62,6 @@ public class UserDao {
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public static User getRegistroById(int id) {
 		User user = null;
@@ -149,6 +135,9 @@ public class UserDao {
 		
 		return list;
 	}
+	
+	
+	
 	
 	
 	

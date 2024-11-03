@@ -8,7 +8,7 @@
     <%@ page import="com.library.dao.UserDao, com.library.bean.User, java.util.*" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
-    <h1>Listagem de Usuários</h1>
+    <h1>Listagem de Livros</h1>
     
     <%
     List<User> list = UserDao.getAllUsers();
@@ -22,7 +22,7 @@
             <th>Nome do Livro</th>
             <th>Celular</th>
             <th>Editar</th>
-            <th>Deletar</th>
+            <th>Excluir</th>
             
         </tr>
         <c:forEach items="${list}" var="user">
@@ -32,11 +32,11 @@
                 <td>${user.bookname}</td>
                 <td>${user.number}</td>
                 <td><a href="editform.jsp?id=${user.getId()}">Editar</a></td>
-                <td><a href="deleteuser.jsp?id=${user.getId()}">Deletar</a></td>
+                <td><a href="deleteuser.jsp?id=${user.getId()}" onclick="return confirm('Tem certeza de que deseja excluir este livro?');">Excluir</a></td>
             </tr>
         </c:forEach>
     </table>
     <br>
-    <a href="adduserform.jsp">Adicionar novo Usuário</a>
+    <a href="adduserform.jsp">Adicionar novo livro</a>
 </body>
 </html>
