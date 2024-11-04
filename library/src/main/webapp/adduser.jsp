@@ -7,9 +7,9 @@
 	int i = UserDao.saveUser(u);
 
 	if(i > 0) {
-		response.sendRedirect("adduser-sucess.jsp");
+		response.sendRedirect("index.jsp");
 	} else {
-		response.sendRedirect("adduser-error.jsp");
+		response.sendRedirect("index.jsp");
 	}
 
 

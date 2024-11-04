@@ -4,7 +4,7 @@
 
 <%
 UserDao.deleteUser(u);
-response.sendRedirect("viewusers.jsp");
+response.sendRedirect("listalivros.jsp");
 
 
 

@@ -126,7 +126,7 @@
             </c:forEach>
         </table>
 
-        <a href="adduserform.jsp" class="btn-custom">Adicionar novo livro</a>
+        <a href="adicionarlivro.jsp" class="btn-custom">Adicionar novo livro</a>
     </div>
 
     <!-- JavaScript (Opcional) -->

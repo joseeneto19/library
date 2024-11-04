@@ -4,5 +4,5 @@
 
 <%
 int i = UserDao.updateUser(u);
-response.sendRedirect("viewusers.jsp");
+response.sendRedirect("listalivros.jsp");
 %>
