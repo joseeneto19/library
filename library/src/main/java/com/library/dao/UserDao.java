@@ -136,6 +136,60 @@ public class UserDao {
 		return list;
 	}
 	
+	public static List<User> searchUsers(String searchTerm) {
+	    List<User> list = new ArrayList<>();
+	    try {
+	        Connection con = getConnection();
+	        
+	        // Inicializa a consulta SQL básica
+	        String sql = "SELECT * FROM user WHERE 1=1"; // 1=1 é sempre verdadeiro, facilita adicionar condições dinamicamente
+	        
+	        // Adiciona condições baseadas no parâmetro searchTerm
+	        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+	            sql += " AND (bookname LIKE ? OR id = ? OR bookid = ?)";
+	        }
+	        
+	        PreparedStatement ps = con.prepareStatement(sql);
+
+	        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+	            // O parâmetro 1 será para a pesquisa de livro por nome (usando LIKE)
+	            ps.setString(1, "%" + searchTerm + "%");
+
+	            try {
+	                // O parâmetro 2 será para a pesquisa pelo id (caso o termo seja numérico)
+	                ps.setInt(2, Integer.parseInt(searchTerm));
+	            } catch (NumberFormatException e) {
+	                // Caso o valor não seja numérico, ignoramos a configuração do parâmetro 2 (id)
+	                ps.setNull(2, java.sql.Types.INTEGER); // Define como NULL se não for numérico
+	            }
+
+	            try {
+	                // O parâmetro 3 será para a pesquisa pelo bookid (caso o termo seja numérico)
+	                ps.setInt(3, Integer.parseInt(searchTerm));
+	            } catch (NumberFormatException e) {
+	                // Caso o valor não seja numérico, ignoramos a configuração do parâmetro 3 (bookid)
+	                ps.setNull(3, java.sql.Types.INTEGER); // Define como NULL se não for numérico
+	            }
+	        }
+
+	        ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	            User user = new User();
+	            user.setId(rs.getInt("id"));
+	            user.setBookid(rs.getInt("bookid"));
+	            user.setBookname(rs.getString("bookname"));
+	            user.setNumber(rs.getLong("number"));
+	            list.add(user);
+	        }
+	        con.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+
+
+
 	
 	
 	

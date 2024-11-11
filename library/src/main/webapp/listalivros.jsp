@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Visualização de Usuários</title>
 
-    <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
           crossorigin="anonymous">
 
-    <!-- CSS Personalizado -->
+
     <style>
         body {
             background: linear-gradient(to bottom right, #4B0082, #87CEFA);
@@ -96,40 +96,73 @@
     <div class="container">
         <h1>Listagem de Livros</h1>
 
-        <!-- JSP Code to Import Data -->
         <%@ page import="com.library.dao.UserDao, com.library.bean.User, java.util.*" %>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         
         <%
-        List<User> list = UserDao.getAllUsers();
+        String search = request.getParameter("search");
+        List<User> list = null;
+
+        if (search != null && !search.trim().isEmpty()) {
+
+            list = UserDao.searchUsers(search);
+        } else {
+
+            list = UserDao.getAllUsers();
+        }
         request.setAttribute("list", list);
         %>
 
+
+        <form action="listalivros.jsp" method="get">
+            <input type="text" name="search" placeholder="Pesquisar pelo Nome do Livro, ID ou Código do Livro" required>
+            <button type="submit">Pesquisar</button>
+        </form>
+        <br>
+
+
         <table>
-            <tr>
-                <th>ID</th>
-                <th>Código do Livro</th>
-                <th>Nome do Livro</th>
-                <th>Celular</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-            <c:forEach items="${list}" var="user">
+            <thead>
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.bookid}</td>
-                    <td>${user.bookname}</td>
-                    <td>${user.number}</td>
-                    <td class="action-links"><a href="editform.jsp?id=${user.getId()}">Editar</a></td>
-                    <td class="action-links"><a href="deleteuser.jsp?id=${user.getId()}" onclick="return confirm('Tem certeza de que deseja excluir este livro?');">Excluir</a></td>
+                    <th>ID</th>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Number</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
                 </tr>
-            </c:forEach>
+            </thead>
+            <tbody>
+                <%
+                    List<User> users = (List<User>) request.getAttribute("list");
+                    if (users != null && !users.isEmpty()) {
+                        for (User user : users) {
+                %>
+                            <tr>
+                                <td><%= user.getId() %></td>
+                                <td><%= user.getBookid() %></td>
+                                <td><%= user.getBookname() %></td>
+                                <td><%= user.getNumber() %></td>
+                                <td class="action-links"><a href="editform.jsp?id=<%= user.getId() %>">Editar</a></td>
+                                <td class="action-links"><a href="deleteuser.jsp?id=<%= user.getId() %>" onclick="return confirm('Tem certeza de que deseja excluir este livro?');">Excluir</a></td>
+                            </tr>
+                <%
+                        }
+                    } else {
+                %>
+                        <tr>
+                            <td colspan="6">Nenhum resultado encontrado.</td>
+                        </tr>
+                <%
+                    }
+                %>
+            </tbody>
         </table>
 
         <a href="adicionarlivro.jsp" class="btn-custom">Adicionar novo livro</a>
     </div>
 
-    <!-- JavaScript (Opcional) -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
             crossorigin="anonymous"></script>
